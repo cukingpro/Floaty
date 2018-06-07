@@ -333,8 +333,8 @@ open class Floaty: UIView {
                            usingSpringWithDamping: 0.55,
                            initialSpringVelocity: 0.3,
                            options: UIViewAnimationOptions(), animations: { () -> Void in
-                            self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(self.rotationDegrees), 0.0, 0.0, 1.0)
-                            self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(self.rotationDegrees))
+//                            self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(self.rotationDegrees), 0.0, 0.0, 1.0)
+//                            self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(self.rotationDegrees))
                             self.overlayView.alpha = 1
             }, completion: {(f) -> Void in
                 self.overlayViewDidCompleteOpenAnimation = true
