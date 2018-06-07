@@ -161,6 +161,12 @@ open class Floaty: UIView {
             accessibilityViewIsModal = !closed
         }
     }
+
+    /**
+     Overlay is fullscreen.
+     */
+    @IBInspectable
+    @objc open var isOverlayFullScreen: Bool = true
     
     /**
      Whether or not floaty responds to keyboard notifications and adjusts its position accordingly
@@ -312,8 +318,13 @@ open class Floaty: UIView {
         if(items.count > 0){
             
             setOverlayView()
-            self.superview?.insertSubview(overlayView, aboveSubview: self)
-            self.superview?.bringSubview(toFront: self)
+            if isOverlayFullScreen {
+                window?.insertSubview(overlayView, aboveSubview: self)
+                window?.bringSubview(toFront: self)
+            } else {
+                self.superview?.insertSubview(overlayView, aboveSubview: self)
+                self.superview?.bringSubview(toFront: self)
+            }
             overlayView.addTarget(self, action: #selector(close), for: UIControlEvents.touchUpInside)
             
             overlayViewDidCompleteOpenAnimation = false
@@ -672,6 +683,11 @@ open class Floaty: UIView {
         
     }
     fileprivate func setOverlayFrame() {
+        if isOverlayFullScreen {
+            overlayView.frame = UIScreen.main.bounds
+            return
+        }
+
         if let superview = superview {
             overlayView.frame = CGRect(
                 x: 0,y: 0,
